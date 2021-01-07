@@ -1,0 +1,553 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "MyDiary",
+    "description": "An app that allows users to pen down their thoughts and feelings",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users"
+    },
+    {
+      "name": "Entries",
+      "description": "API for entries"
+    },
+    {
+      "name": "Reminders",
+      "description": "API for reminders"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "properties": {
+                "username": {
+                  "required": true,
+                  "type": "string"
+                },
+                "email": {
+                  "required": true,
+                  "type": "string"
+                },
+                "password": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Registration successful",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "message": "Registration successful",
+                "user": {"username": "username","email": "email@email.com"},
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to signin",
+            "schema": {
+              "properties": {
+                "username": {
+                  "required": true,
+                  "type": "string"
+                },
+                "password": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "message": "Login successful",
+                "user": {"username": "username","email": "email@email.com"},
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/update": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user profile",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Updating user info",
+            "schema": {
+              "properties": {
+                "username": {
+                  "required": true,
+                  "type": "string"
+                },
+                "email": {
+                  "required": true,
+                  "type": "string"
+                },
+                "oldPassword": {
+                  "type": "string"
+                },
+                "newPassword": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "message": "Profile updated successfully",
+                "user": {"username": "username","email": "email@email.com"},
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entries": {
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Get entry all entries",
+        "responses": {
+          "200": {
+            "description": "List of entries",
+            "schema": {
+              "type": "array",
+              "items":{
+                "$ref": "#/definitions/Entry"
+              },
+              "example": [{
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "entry_id": "kjsdiyiuyeiuui87687",
+                "entry_title": "This is a title",
+                "entry_content": "This is a content",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }]
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creating a new entry",
+        "tags": [
+          "Entries"
+        ],
+        "parameters": [
+          {
+            "name": "entry",
+            "in": "body",
+            "description": "Entry with new values of properties",
+            "schema": {
+              "properties": {
+                "entryTitle": {
+                  "required": true,
+                  "type": "string"
+                },
+                "entryContent": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry is successful added",
+            "schema": {
+              "items":{
+                "$ref": "#/definitions/Entry"
+              },
+              "example": {
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "entry_id": "kjsdiyiuyeiuui87687",
+                "entry_title": "This is a title",
+                "entry_content": "This is a content",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entries/{entryId}": {
+      "parameters": [
+        {
+          "name": "entryId",
+          "in": "path",
+          "required": true,
+          "description": "ID of an entry",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Get entry with given ID",
+        "responses": {
+          "200": {
+            "description": "Entry is found",
+            "schema": {
+              "items":{
+                "$ref": "#/definitions/Entry"
+              },
+              "example": {
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "entry_id": "kjsdiyiuyeiuui87687",
+                "entry_title": "This is a title",
+                "entry_content": "This is a content",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update entry with give ID",
+        "tags": [
+          "Entries"
+        ],
+        "parameters": [
+          {
+            "name": "entry",
+            "in": "body",
+            "description": "Entry with new values of properties",
+            "schema": {
+              "properties": {
+                "entryTitle": {
+                  "required": true,
+                  "type": "string"
+                },
+                "entryContent": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry is updated",
+            "schema": {
+              "items":{
+                "$ref": "#/definitions/Entry"
+              },
+              "example": {
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "entry_id": "kjsdiyiuyeiuui87687",
+                "entry_title": "This is a title",
+                "entry_content": "This is a content",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "delete entry with a given ID",
+        "responses": {
+          "204": {
+            "description": "Delete an entry"
+          }
+        }
+      }
+    },
+    "/reminders": {
+      "get": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "Get reminders",
+        "responses": {
+          "200": {
+            "description": "Reminders",
+            "schema": {
+              "items":{
+                "$ref": "#/definitions/Reminder"
+              },
+              "example": {
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "reminder_id": "kjsdiyiuyeiuui87687",
+                "time": "14:19:56",
+                "zone_offset": "-60",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adding a new reminder",
+        "tags": [
+          "Reminders"
+        ],
+        "parameters": [
+          {
+            "name": "reminder",
+            "in": "body",
+            "description": "Adding or updating reminder",
+            "schema": {
+              "properties": {
+                "time": {
+                  "required": true,
+                  "type": "string"
+                },
+                "zone_offset": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reminder is successful added",
+            "schema": {
+              "items":{
+                "$ref": "#/definitions/Reminder"
+              },
+              "example": {
+                "user_id": "kjsl9y9dkiuyjhjk",
+                "reminder_id": "kjsdiyiuyeiuui87687",
+                "time": "14:19:56",
+                "zone_offset": "-60",
+                "updated_at": "2018-07-29 17:31:02.607",
+                "created_at": "2018-07-29 17:31:02.607"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reminders/{reminderId}": {
+      "parameters": [
+        {
+          "name": "reminderId",
+          "in": "path",
+          "required": true,
+          "description": "ID of a reminder",
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "delete a reminder with a given ID",
+        "responses": {
+          "204": {
+            "description": "Delete a reminder"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "username",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "user_id": {
+          "readOnly": true,
+          "type": "string",
+          "uniqueItems": true
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "updated_at": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "created_at": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "Entry": {
+      "required": [
+        "entry_title",
+        "entry_content"
+      ],
+      "properties": {
+        "user_id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "entry_id": {
+          "readOnly": true,
+          "type": "string",
+          "uniqueItems": true
+        },
+        "entry_title": {
+          "type": "string"
+        },
+        "entry_content": {
+          "type": "string"
+        },
+        "updated_at": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "created_at": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "Reminder": {
+      "required": [
+        "time"
+      ],
+      "properties": {
+        "user_id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "reminder_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "time": {
+          "type": "string"
+        },
+        "zone_offset": {
+          "type": "string"
+        },
+        "updated_at": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "created_at": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

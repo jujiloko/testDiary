@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,600,700');
+
+*{
+  padding:  0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;;
+  font-size: 1.6em;
+  width: 100vw;
+  height: 100vh;
+  min-height: 660px;
+  overflow-x: hidden;
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/273025/pexels-photo-273025.jpeg?cs=srgb&dl=agenda-book-business-273025.jpg&fm=jpg");
+  background-size: cover;
+}
+
+.row {
+  display: flex;
+}
+
+.flow-column {
+  flex-flow: column;
+}
+
+div.hide{
+  display: none;
+}
+
+div#root {
+  height: 100%;
+}
+
+main.main-body {
+  min-height: 500px;
+  height: calc(100% - 97px);
+  padding: 20px 0px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+div.show-status {
+  position: fixed;
+  z-index: 200;
+  top: 12px;
+  right: 12px;
+  color: #fff;
+  padding: 7px;
+  border-radius: 3px;
+  box-shadow: 0 0 5px #fff;
+  max-width: 296px;
+}
+
+div.show-status.success{
+  background: #41A34C;
+  border: 2px solid #378B41;
+}
+
+div.show-status.error{
+  background: #EE0808;
+  border: 2px solid #B80606;
+}
+
+div.show-status table#status-wrapper {
+  font-size: 11px;
+  letter-spacing: 0.7px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+div.show-status span.close {
+  position: absolute;
+  font-size: 12px;
+  color: #eee;
+  right: 2px;
+  top: 0px;
+  cursor: pointer;
+}
+
+table#status-wrapper td {
+  padding: 2px;
+}
+
+footer.main-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.9px;
+  padding: 15px;
+  color: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 850px){
+  body{
+    min-height: 700px;
+  }
+}
